@@ -5,8 +5,10 @@ const SECRET_KEY = new TextEncoder().encode(process.env.TOKEN);
 
 export async function middleware(req) {
   const token = req.cookies.get("session_token")?.value;
+  
+  const loginPath = "/";
 
-  if (!token && !req.nextUrl.pathname.startsWith("/")) {
+  if (!token && req.nextUrl.pathname !== loginPath) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
