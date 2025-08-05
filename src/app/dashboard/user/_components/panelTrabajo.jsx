@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-export default function PanelTrabajo({ userData, onUpdate }) {
+export default function PanelTrabajo({ userData, onUpdate, regData }) {
   const [disabledEntrada, setDisabledEntrada] = useState(false);
   const [disabledSalida, setDisabledSalida] = useState(false);
+  const [disabledReporte, setDisabledReporte] = useState(true);
 
   useEffect(() => {
     if (userData && userData.usuario && userData.usuario.estado == "Activo") {
@@ -14,7 +15,21 @@ export default function PanelTrabajo({ userData, onUpdate }) {
       setDisabledEntrada(false);
       setDisabledSalida(true);
     }
-  }, [userData]);
+
+    if (regData) {
+      console.log(regData);
+
+      if (Object.keys(regData).length !== 0) {
+        if (regData.registro?.informe_cargado) {
+          setDisabledReporte(true);
+        } else {
+          setDisabledReporte(false);
+        }
+      } else {
+        setDisabledReporte(true);
+      }
+    }
+  }, [userData, regData]);
 
   const entrada = async () => {
     console.log("Marcar entrada...");
@@ -60,9 +75,19 @@ export default function PanelTrabajo({ userData, onUpdate }) {
   const handleReporteSubmit = async (event) => {
     event.preventDefault();
     const input = event.target.reporte.value;
-
-    console.log("Enviando reporte...: " + input);
-    
+    const res = await fetch("/api/reporte", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ reporte: input }),
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      alert(error.error);
+      return;
+    }
+    alert("Reporte subido correctamente.");
   };
 
   return (
@@ -101,12 +126,14 @@ export default function PanelTrabajo({ userData, onUpdate }) {
         <h2 className="font-body text-2xl">Reporte de dia</h2>
         <form onSubmit={handleReporteSubmit}>
           <textarea
+            disabled={disabledReporte}
             name="reporte"
             type="text"
-            placeholder="Ingrese las tareas que realizo el dia de la fecha"
-            className="bg-background p-2 rounded-2xl w-full my-2"
+            placeholder="Tareas realizadas en el dia, debe tener el registro de entrada y salida para habilitar este campo."
+            className="bg-background p-2 rounded-2xl w-full my-2 h-32"
           />
           <button
+            disabled={disabledReporte}
             type="submit"
             className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2"
           >

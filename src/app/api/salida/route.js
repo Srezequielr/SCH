@@ -37,9 +37,18 @@ export async function GET(request) {
     }
 
     console.log(data);
-    
 
     const response = NextResponse.json({ intervalo: data }, { status: 200 });
+
+    response.cookies.set({
+      name: "registro_id",
+      value: data[0].id_registro,
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      maxAge: 12 * 60 * 60,
+      sameSite: "strict",
+    });
 
     return response;
   } catch (err) {
