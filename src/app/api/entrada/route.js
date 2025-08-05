@@ -19,6 +19,9 @@ export async function GET(request) {
     );
     const { dni } = payload; // ← el dni que guardaste al loguear
 
+    let { data, error } = await supabase.rpc("marcar_entrada", {
+      dni_emp: dni,
+    });
 
     if (error) {
       if (error.message === "409") {

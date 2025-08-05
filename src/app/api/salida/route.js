@@ -11,12 +11,13 @@ const supabase = createClient(
 export async function GET(request) {
   const cookieStore = await cookies();
 
-  const intervalo_id = cookieStore.get("intervalo_id")?.value;
-
   try {
-    let { data, error } = await supabase.rpc("marcar_entrada", {
-      marcar_salida: intervalo_id,
+    const intervalo_id = cookieStore.get("intervalo_id")?.value;
+
+    let { data, error } = await supabase.rpc("marcar_salida", {
+      intervalo_id,
     });
+
     if (error) {
       if (error.message === "409") {
         // Error de duplicado, ya existe un registro de entrada
@@ -35,15 +36,12 @@ export async function GET(request) {
       );
     }
 
-    const response = NextResponse.json(
-      { cookie: payload, usuario: data },
-      { status: 200 }
-    );
+    console.log(data);
+    
+
+    const response = NextResponse.json({ intervalo: data }, { status: 200 });
 
     return response;
-    // Aca va toda la logida de la ruta de marcar salida
-    // Deveria ser similar a la de entrada
-    // Pero con la diferencia que tengo que calcular la cantidad de horas trabajadas obtiendo la hora de entrada del intervalo completo
   } catch (err) {
     return NextResponse.json(
       {
