@@ -6,6 +6,7 @@ import PanelTrabajo from "./_components/panelTrabajo";
 
 export default function admin() {
   const [userData, setUserData] = useState(null);
+  const [registroData, setRegistroData] = useState(null);
   const fechaActual = new Date();
   const año = fechaActual.getFullYear();
   const mes = fechaActual.getMonth() + 1;
@@ -15,11 +16,21 @@ export default function admin() {
     console.log("Fetching user data...");
     const res = await fetch("/api/user");
     if (!res.ok) {
-      console.error("Error fetching user data");
+      const error = await res.json();
+      alert(error.error);
       return;
     }
     const userData = await res.json();
     setUserData(userData);
+
+    const registroRes = await fetch("/api/ultimoReporte");
+    if (!registroRes.ok) {
+      const error = await res.json();
+      alert(error.error);
+      return;
+    }
+    const registroData = await registroRes.json();
+    setRegistroData(registroData);
   };
 
   useEffect(() => {
@@ -47,7 +58,11 @@ export default function admin() {
             Bienvenido {userData.usuario.nombre}!
           </h1>
         </div>
-        <PanelTrabajo userData={userData} onUpdate={fetchData} />
+        <PanelTrabajo
+          userData={userData}
+          regData={registroData}
+          onUpdate={fetchData}
+        />
         <div className="bg-brown-main p-5 text-center rounded-2xl w-full">
           <h1 className="font-body text-3xl">Mis datos</h1>
           <div className="flex flex-row gap-2 mt-2 justify-between">

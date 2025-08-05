@@ -24,6 +24,15 @@ export async function GET() {
       dni_emp: dni,
     });
 
+    if (error) {
+      return NextResponse.json(
+        {
+          error: "Error desconocido: " + error.message,
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       { cookie: payload, usuario: data },
       {
