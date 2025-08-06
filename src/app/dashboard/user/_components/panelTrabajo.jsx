@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function PanelTrabajo({ userData, onUpdate, regData }) {
+  const mainColor = "#A47864";
   const [disabledEntrada, setDisabledEntrada] = useState(false);
   const [disabledSalida, setDisabledSalida] = useState(false);
   const [disabledReporte, setDisabledReporte] = useState(true);
+  const [loadingEntrada, setLoadingEntrada] = useState(false);
+  const [loadingSalida, setLoadingSalida] = useState(false);
+  const [loadingReporte, setLoadingReporte] = useState(false);
+
+  console.log(navigator.geolocation);
 
   useEffect(() => {
     if (userData && userData.usuario && userData.usuario.estado == "Activo") {
@@ -17,8 +24,6 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     }
 
     if (regData) {
-      console.log(regData);
-
       if (Object.keys(regData).length !== 0) {
         if (regData.registro?.informe_cargado) {
           setDisabledReporte(true);
@@ -32,11 +37,18 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
   }, [userData, regData]);
 
   const entrada = async () => {
-    console.log("Marcar entrada...");
+    setLoadingEntrada(true);
     const res = await fetch("/api/entrada");
+    setLoadingEntrada(false);
     if (!res.ok) {
       const error = await res.json();
-      alert(error.error);
+      Swal.fire({
+        icon: "error",
+        title: "No se pudo marcar la entrada.",
+        text: error.error,
+        background: mainColor,
+        color: "#000000",
+      });
       return;
     }
     const estado = await fetch("/api/activo");
@@ -46,15 +58,27 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
       return;
     }
     onUpdate();
-    alert("Entrada marcada correctamente.");
+    Swal.fire({
+      icon: "success",
+      title: "Entrada marcada correctamente!",
+      background: mainColor,
+      color: "#000000",
+    });
   };
 
   const salida = async () => {
-    console.log("Marcar salida...");
+    setLoadingSalida(true);
     const res = await fetch("/api/salida");
+    setLoadingSalida(false);
     if (!res.ok) {
       const error = await res.json();
-      alert(error.error);
+      Swal.fire({
+        icon: "error",
+        title: "No se pudo marcar la salida.",
+        text: error.error,
+        background: mainColor,
+        color: "#000000",
+      });
       return;
     }
 
@@ -64,16 +88,28 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     const estado = await fetch("/api/inactivo");
     if (!estado.ok) {
       const error = await estado.json();
-      alert(error.error);
+      Swal.fire({
+        icon: "error",
+        title: "No se pudo marcar la salida.",
+        text: error.error,
+        background: mainColor,
+        color: "#000000",
+      });
       return;
     }
-
-    alert("Salida marcada correctamente, horas trabajadas: " + horasTotales);
+    Swal.fire({
+      icon: "success",
+      title: "Salida marcada correctamente!",
+      text: "horas trabajadas: " + horasTotales,
+      background: mainColor,
+      color: "#000000",
+    });
     onUpdate();
   };
 
   const handleReporteSubmit = async (event) => {
     event.preventDefault();
+    setLoadingReporte(true);
     const input = event.target.reporte.value;
     const res = await fetch("/api/reporte", {
       method: "POST",
@@ -82,12 +118,25 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
       },
       body: JSON.stringify({ reporte: input }),
     });
+    setLoadingReporte(false);
     if (!res.ok) {
       const error = await res.json();
-      alert(error.error);
+      Swal.fire({
+        icon: "error",
+        title: "No se pudo subir el reporte.",
+        text: error.error,
+        background: mainColor,
+        color: "#000000",
+      });
       return;
     }
-    alert("Reporte subido correctamente.");
+    Swal.fire({
+      icon: "success",
+      title: "Reporte subido correctamente!",
+      background: mainColor,
+      color: "#000000",
+    });
+    onUpdate();
   };
 
   return (
@@ -112,14 +161,14 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
           className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400"
           disabled={disabledEntrada}
         >
-          Marcar entrada
+          {loadingEntrada ? "Marcando entrada..." : "Marcar entrada"}
         </button>
         <button
           onClick={salida}
           className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400"
           disabled={disabledSalida}
         >
-          Marcar salida
+          {loadingSalida ? "Marcando salida..." : "Marcar salida"}
         </button>
       </div>
       <div>
@@ -137,7 +186,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
             type="submit"
             className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2"
           >
-            Enviar reporte
+            {loadingReporte? "Enviendo reporte..." : "Enviar reporte"}
           </button>
         </form>
       </div>
