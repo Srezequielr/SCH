@@ -35,12 +35,9 @@ export default function admin() {
 
   useEffect(() => {
     fetchData();
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 60000); // Actualiza cada minuto
   }, []);
 
-  if (!userData) {
+  if (!userData || !registroData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Icon icon="mdi:loading" className="animate-spin text-7xl" />
