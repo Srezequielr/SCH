@@ -36,7 +36,19 @@ export async function GET(request) {
       );
     }
 
-    console.log(data);
+    let { horas, errorHoras } = await supabase.rpc("acumular_horas", {
+      horas_nuevas: data[0].horas_trabajadas.toFixed(2),
+      id_reg: data[0].id_registro,
+    });
+
+    if (errorHoras) {
+      return NextResponse.json(
+        {
+          error: "Error desconocido al actualizar horas: " + error.message,
+        },
+        { status: 500 }
+      );
+    }
 
     const response = NextResponse.json({ intervalo: data }, { status: 200 });
 
