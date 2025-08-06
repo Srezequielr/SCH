@@ -2,12 +2,15 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Icon } from "@iconify/react";
 
 export default function Home() {
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const res = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -16,10 +19,8 @@ export default function Home() {
       body: JSON.stringify({ documento: event.target.dni.value }),
     });
     const data = await res.json();
-
+    setIsLoading(false);
     if (!res.ok) {
-      console.log("entre aca");
-
       setError(data.error);
       return;
     }
@@ -53,21 +54,22 @@ export default function Home() {
           <label className="font-body text-2xl">Ingrese su DNI</label>
           <input
             type="number"
-            className="w-full p-2 mt-2 border border-brown-detail rounded-lg focus:outline-none focus:ring-2 focus:ring-brown-detail"
+            className="w-full p-2 mt-2 border border-brown-detail rounded-lg focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail bg-background transition"
             placeholder="DNI"
             name="dni"
             required
           />
+
           <button
             type="submit"
-            className="mt-4 px-6 py-2 bg-brown-detail text-white rounded-lg hover:bg-brown-main transition-colors"
+            className="mt-4 px-6 py-2 bg-brown-detail text-white rounded-lg focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail transition"
           >
-            Ingresar
+            {isLoading ? "Ingresando..." : "Ingresar"}
           </button>
         </form>
       </div>
       {error && (
-        <p className="text-red-500 font-bold text-center px-5">{error}</p>
+        <p className="text-red-500 font-bold text-center px-5 transition-all">{error}</p>
       )}
     </div>
   );
