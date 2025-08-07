@@ -33,12 +33,19 @@ export async function GET() {
       );
     }
 
-    return NextResponse.json(
-      { registro: data[0] },
-      {
-        status: 200,
-      }
-    );
+    const response = NextResponse.json({ registro: data[0] }, { status: 200 });
+
+    response.cookies.set({
+      name: "registro_id",
+      value: data[0].id,
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      maxAge: 12 * 60 * 60,
+      sameSite: "strict",
+    });
+
+    return response;
   } catch (err) {
     return NextResponse.json(
       {

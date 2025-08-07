@@ -11,8 +11,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
   const [loadingEntrada, setLoadingEntrada] = useState(false);
   const [loadingSalida, setLoadingSalida] = useState(false);
   const [loadingReporte, setLoadingReporte] = useState(false);
-
-  console.log(navigator.geolocation);
+  const [mensajeReporte, setReporteMensaje] = useState("");
 
   useEffect(() => {
     if (userData && userData.usuario && userData.usuario.estado == "Activo") {
@@ -24,14 +23,18 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     }
 
     if (regData) {
+      console.log(regData);
+
       if (Object.keys(regData).length !== 0) {
         if (regData.registro?.informe_cargado) {
           setDisabledReporte(true);
+          setReporteMensaje("Reporte ya cargado.");
         } else {
           setDisabledReporte(false);
         }
       } else {
         setDisabledReporte(true);
+        setReporteMensaje("Primero hay que registrar la jornada.");
       }
     }
   }, [userData, regData]);
@@ -173,22 +176,26 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
       </div>
       <div>
         <h2 className="font-body text-2xl">Reporte de dia</h2>
-        <form onSubmit={handleReporteSubmit}>
-          <textarea
-            disabled={disabledReporte}
-            name="reporte"
-            type="text"
-            placeholder="Tareas realizadas en el dia, debe tener el registro de entrada y salida para habilitar este campo."
-            className="bg-background p-2 rounded-2xl w-full my-2 h-32"
-          />
-          <button
-            disabled={disabledReporte}
-            type="submit"
-            className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2"
-          >
-            {loadingReporte? "Enviendo reporte..." : "Enviar reporte"}
-          </button>
-        </form>
+        {disabledReporte ? (
+          mensajeReporte
+        ) : (
+          <form onSubmit={handleReporteSubmit}>
+            <textarea
+              disabled={disabledReporte}
+              name="reporte"
+              type="text"
+              placeholder="Tareas realizadas en el dia, debe tener el registro de entrada y salida para habilitar este campo."
+              className="bg-background p-2 rounded-2xl w-full my-2 h-32"
+            />
+            <button
+              disabled={disabledReporte}
+              type="submit"
+              className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2"
+            >
+              {loadingReporte ? "Enviendo reporte..." : "Enviar reporte"}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
