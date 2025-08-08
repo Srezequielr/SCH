@@ -13,7 +13,6 @@ export default function admin() {
   const dia = fechaActual.getDate();
 
   const fetchData = async () => {
-    console.log("Fetching user data...");
     const res = await fetch("/api/user");
     if (!res.ok) {
       const error = await res.json();
@@ -25,7 +24,7 @@ export default function admin() {
 
     const registroRes = await fetch("/api/ultimoReporte");
     if (!registroRes.ok) {
-      const error = await res.json();
+      const error = await registroRes.json();
       alert(error.error);
       return;
     }
