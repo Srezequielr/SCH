@@ -25,7 +25,7 @@ export default function Registro({ registro, intervalo }) {
         );
       })}
       <h2 className="font-body text-2xl my-2 text-center">Reporte del dia</h2>
-      <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center">
+      <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
         {registro.informe
           ? registro.informe
           : "Aun no has cargado ningun reporte."}

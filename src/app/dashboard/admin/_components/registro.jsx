@@ -42,7 +42,7 @@ export default function Registro({ empleado }) {
       })}
       <hr />
       <h2 className="font-body text-2xl my-2 text-center">Reporte del dia</h2>
-      <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center">
+      <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
         {empleado.registros[0].informe
           ? empleado.registros[0].informe
           : "Aun no hay un informe cargado."}
