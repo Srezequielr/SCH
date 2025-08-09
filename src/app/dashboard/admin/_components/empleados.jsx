@@ -4,8 +4,6 @@ export default function Empleados({ empleados }) {
     (emp) => emp.estado == "Inactivo"
   );
 
-  console.log(empleadosInactivos);
-
   return (
     <div className="bg-brown-main p-5 text-center rounded-2xl w-full">
       <h3 className="font-body text-3xl">Mis Empleados</h3>
