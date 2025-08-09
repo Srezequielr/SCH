@@ -23,8 +23,6 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     }
 
     if (regData) {
-      console.log(regData);
-
       if (Object.keys(regData).length !== 0) {
         if (regData.registro?.informe_cargado) {
           setDisabledReporte(true);
@@ -161,14 +159,14 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
       <div className="flex flex-col gap-2 mb-4">
         <button
           onClick={entrada}
-          className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400"
+          className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
           disabled={disabledEntrada}
         >
           {loadingEntrada ? "Marcando entrada..." : "Marcar entrada"}
         </button>
         <button
           onClick={salida}
-          className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400"
+          className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
           disabled={disabledSalida}
         >
           {loadingSalida ? "Marcando salida..." : "Marcar salida"}
@@ -177,7 +175,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
       <div>
         <h2 className="font-body text-2xl">Reporte de dia</h2>
         {disabledReporte ? (
-          mensajeReporte
+          <p className="font-body">{mensajeReporte}</p>
         ) : (
           <form onSubmit={handleReporteSubmit}>
             <textarea
@@ -185,12 +183,12 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
               name="reporte"
               type="text"
               placeholder="Tareas realizadas en el dia, debe tener el registro de entrada y salida para habilitar este campo."
-              className="bg-background p-2 rounded-2xl w-full my-2 h-32"
+              className="bg-background p-2 rounded-2xl w-full my-2 h-32 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
             />
             <button
               disabled={disabledReporte}
               type="submit"
-              className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2"
+              className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
             >
               {loadingReporte ? "Enviendo reporte..." : "Enviar reporte"}
             </button>
