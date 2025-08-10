@@ -1,6 +1,18 @@
 import { formatHora } from "../../admin/_components/registro";
 
 export default function Registro({ registro, intervalo }) {
+  console.log(registro);
+
+  if (!registro) {
+    return (
+      <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
+        <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+          Aun no hay ningun registros el dia de la fecha
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
       <div className="flex flex-row gap-2 justify-between my-2">

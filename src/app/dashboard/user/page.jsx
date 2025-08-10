@@ -43,6 +43,8 @@ export default function user() {
     setIntervalo(intervaloData);
   };
 
+  console.log(registroData);
+
   useEffect(() => {
     fetchData();
   }, []);

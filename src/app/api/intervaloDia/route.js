@@ -13,27 +13,38 @@ export async function GET(request) {
   try {
     const registro_id = cookieStore.get("registro_id")?.value;
 
-    let { data, error } = await supabase.rpc("intervalos_hoy_empleado", {
-      id_reg: registro_id,
-    });
+    if (registro_id) {
+      let { data, error } = await supabase.rpc("intervalos_hoy_empleado", {
+        id_reg: registro_id,
+      });
 
-    if (error) {
-      return NextResponse.json(
-        {
-          error: "Error desconocido: " + error.message,
-        },
-        { status: 500 }
-      );
-    }
-
-    const response = NextResponse.json(
-      { intervalos: data },
-      {
-        status: 200,
+      if (error) {
+        return NextResponse.json(
+          {
+            error: "Error desconocido: " + error.message,
+          },
+          { status: 500 }
+        );
       }
-    );
 
-    return response;
+      const response = NextResponse.json(
+        { intervalos: data },
+        {
+          status: 200,
+        }
+      );
+
+      return response;
+    } else {
+      const response = NextResponse.json(
+        { intervalos: [] },
+        {
+          status: 200,
+        }
+      );
+
+      return response;
+    }
   } catch (err) {
     return NextResponse.json(
       {
