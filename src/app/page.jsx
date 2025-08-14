@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Icon } from "@iconify/react";
 
 export default function Home() {
   const [error, setError] = useState("");
@@ -39,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-10">
-      <p className="absolute right-2 top-2">V1.0</p>
+      <p className="absolute right-2 top-2">V1.01.0</p>
       <Image
         width={250}
         height={250}

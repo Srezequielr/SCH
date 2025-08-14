@@ -8,9 +8,12 @@ const supabase = createClient(
   process.env.SUPABASE_KEY
 );
 
-export async function GET(request) {
+export async function POST(request) {
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token")?.value;
+
+  const { lat, long } = await request.json();
+  console.log(lat, long);
 
   try {
     const { payload } = await jwtVerify(
@@ -21,6 +24,8 @@ export async function GET(request) {
 
     let { data, error } = await supabase.rpc("marcar_entrada", {
       dni_emp: dni,
+      lat,
+      long,
     });
 
     if (error) {

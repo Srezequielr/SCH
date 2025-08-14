@@ -3,6 +3,58 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
+function obtenerGeolocalizacion() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      resolve({
+        status: "error",
+        errorType: "NO_SOPORTADO",
+        message: "Geolocalización no soportada en este navegador",
+      });
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (posicion) => {
+        resolve({
+          status: "success",
+          data: {
+            lat: posicion.coords.latitude,
+            long: posicion.coords.longitude,
+          },
+        });
+      },
+      (error) => {
+        let errorType, message;
+        // Mapeamos los códigos de error a mensajes más descriptivos
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorType = "PERMISO DENEGADO";
+            message = "El usuario denegó los permisos de geolocalización";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorType = "NO DISPONIBLE";
+            message = "La información de ubicación no está disponible";
+            break;
+          case error.TIMEOUT:
+            errorType = "TIMEOUT";
+            message = "Tiempo de espera agotado al obtener la ubicación";
+            break;
+          default:
+            errorType = "DESCONOCIDO";
+            message = "Error desconocido al obtener la ubicación";
+        }
+        resolve({
+          status: "error",
+          errorType,
+          message,
+          originalError: error,
+        });
+      }
+    );
+  });
+}
+
 export default function PanelTrabajo({ userData, onUpdate, regData }) {
   const mainColor = "#A47864";
   const [disabledEntrada, setDisabledEntrada] = useState(false);
@@ -37,36 +89,56 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     }
   }, [userData, regData]);
 
+  //  Manejar entrada del usuario
   const entrada = async () => {
     setLoadingEntrada(true);
-    const res = await fetch("/api/entrada");
-    setLoadingEntrada(false);
-    if (!res.ok) {
-      const error = await res.json();
+    const ubicacion = await obtenerGeolocalizacion();
+
+    if (ubicacion.status == "success") {
+      const res = await fetch("/api/entrada", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ubicacion.data),
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        Swal.fire({
+          icon: "error",
+          title: "No se pudo marcar la entrada.",
+          text: error.error,
+          background: mainColor,
+          color: "#000000",
+        });
+        return;
+      }
+      const estado = await fetch("/api/activo");
+      if (!estado.ok) {
+        const error = await estado.json();
+        alert(error.error);
+        return;
+      }
+      onUpdate();
       Swal.fire({
-        icon: "error",
-        title: "No se pudo marcar la entrada.",
-        text: error.error,
+        icon: "success",
+        title: "Entrada marcada correctamente!",
         background: mainColor,
         color: "#000000",
       });
-      return;
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: ubicacion.errorType,
+        text: ubicacion.message,
+        background: mainColor,
+        color: "#000000",
+      });
     }
-    const estado = await fetch("/api/activo");
-    if (!estado.ok) {
-      const error = await estado.json();
-      alert(error.error);
-      return;
-    }
-    onUpdate();
-    Swal.fire({
-      icon: "success",
-      title: "Entrada marcada correctamente!",
-      background: mainColor,
-      color: "#000000",
-    });
+    setLoadingEntrada(false);
   };
 
+  // Manejar salida del usuario
   const salida = async () => {
     setLoadingSalida(true);
     const res = await fetch("/api/salida");
