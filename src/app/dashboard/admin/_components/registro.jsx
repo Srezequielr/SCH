@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function formatHora(fechaISO) {
   const fecha = new Date(fechaISO);
   return fecha.toLocaleTimeString("es-ES", {
@@ -8,6 +10,8 @@ export function formatHora(fechaISO) {
 }
 
 export default function Registro({ empleado }) {
+  console.log(empleado);
+
   return (
     <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
       <div className="flex flex-row gap-2 justify-between my-2">
@@ -50,7 +54,19 @@ export default function Registro({ empleado }) {
       <h2 className="font-body text-2xl my-2 text-center">
         Ubicacion donde empezo al jornada
       </h2>
-      <p className="font-body text-center">Esto viene en otra actualizacion</p>
+      <div className="flex justify-center">
+        <p className="bg-brown-detail py-2 px-4 rounded-2xl">
+          {empleado.registros[0].latitud ? (
+            <Link
+              href={`https://www.google.com/maps/search/?api=1&query=${empleado.registros[0].latitud},${empleado.registros[0].longitud}`}
+            >
+              Ver ubicacion{" "}
+            </Link>
+          ) : (
+            "Ubicacion no disponible"
+          )}
+        </p>
+      </div>
     </div>
   );
 }
