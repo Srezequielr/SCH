@@ -15,7 +15,6 @@ export async function POST(request) {
   try {
     const registro_id = cookieStore.get("registro_id")?.value;
 
-    console.log(registro_id);
     // Ahora sí, consultar a Supabase con ese dni
     let { data, error } = await supabase.rpc("cargar_reporte", {
       id_reg: registro_id,

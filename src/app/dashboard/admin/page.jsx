@@ -15,7 +15,7 @@ export default function admin() {
   const dia = fechaActual.getDate();
 
   const fetchData = async () => {
-    const resUser = await fetch("/api/user");
+    const resUser = await fetch("/api/getUser");
     if (!resUser.ok) {
       const error = await resUser.json();
       alert(error.error);
@@ -24,7 +24,7 @@ export default function admin() {
     const userData = await resUser.json();
     setUserData(userData);
 
-    const resEmpleados = await fetch("/api/empleados");
+    const resEmpleados = await fetch("/api/admin/getEmpleados");
     if (!resEmpleados.ok) {
       const error = await resEmpleados.json();
       alert(error.error);
@@ -33,7 +33,7 @@ export default function admin() {
     const empleadosData = await resEmpleados.json();
     setEmpleados(empleadosData.empleados);
 
-    const resRegistros = await fetch("/api/registrosDia");
+    const resRegistros = await fetch("/api/admin/getRegistrosDia");
     if (!resRegistros.ok) {
       const error = await resEmpleados.json();
       alert(error.error);
@@ -42,7 +42,7 @@ export default function admin() {
     const registrosData = await resRegistros.json();
     setRegistros(registrosData);
 
-    const resIntervalos = await fetch("/api/intervalosDia");
+    const resIntervalos = await fetch("/api/admin/getIntervalosDia");
     if (!resRegistros.ok) {
       const error = await resEmpleados.json();
       alert(error.error);

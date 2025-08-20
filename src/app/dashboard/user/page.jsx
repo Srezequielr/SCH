@@ -15,7 +15,7 @@ export default function user() {
   const dia = fechaActual.getDate();
 
   const fetchData = async () => {
-    const res = await fetch("/api/user");
+    const res = await fetch("/api/getUser");
     if (!res.ok) {
       const error = await res.json();
       alert(error.error);
@@ -24,7 +24,7 @@ export default function user() {
     const userData = await res.json();
     setUserData(userData);
 
-    const registroRes = await fetch("/api/registroDia");
+    const registroRes = await fetch("/api/user/getRegistroDia");
     if (!registroRes.ok) {
       const error = await registroRes.json();
       alert(error.error);
@@ -33,7 +33,7 @@ export default function user() {
     const registroData = await registroRes.json();
     setRegistroData(registroData);
 
-    const intervaloRes = await fetch("/api/intervaloDia");
+    const intervaloRes = await fetch("/api/user/getIntervaloDia");
     if (!intervaloRes.ok) {
       const error = await intervaloRes.json();
       alert(error.error);
@@ -42,8 +42,6 @@ export default function user() {
     const intervaloData = await intervaloRes.json();
     setIntervalo(intervaloData);
   };
-
-  console.log(registroData);
 
   useEffect(() => {
     fetchData();

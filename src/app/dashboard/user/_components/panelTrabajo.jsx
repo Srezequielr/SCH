@@ -95,7 +95,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     const ubicacion = await obtenerGeolocalizacion();
 
     if (ubicacion.status == "success") {
-      const res = await fetch("/api/entrada", {
+      const res = await fetch("/api/user/setEntrada", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
         });
         return;
       }
-      const estado = await fetch("/api/activo");
+      const estado = await fetch("/api/user/setActivo");
       if (!estado.ok) {
         const error = await estado.json();
         alert(error.error);
@@ -141,7 +141,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
   // Manejar salida del usuario
   const salida = async () => {
     setLoadingSalida(true);
-    const res = await fetch("/api/salida");
+    const res = await fetch("/api/user/setSalida");
     setLoadingSalida(false);
     if (!res.ok) {
       const error = await res.json();
@@ -158,7 +158,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     const data = await res.json();
     const horasTotales = data.intervalo[0].horas_trabajadas.toFixed(2);
 
-    const estado = await fetch("/api/inactivo");
+    const estado = await fetch("/api/user/setInactivo");
     if (!estado.ok) {
       const error = await estado.json();
       Swal.fire({
@@ -184,7 +184,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     event.preventDefault();
     setLoadingReporte(true);
     const input = event.target.reporte.value;
-    const res = await fetch("/api/reporte", {
+    const res = await fetch("/api/user/setReporte", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

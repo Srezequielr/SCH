@@ -13,7 +13,6 @@ export async function POST(request) {
   const token = cookieStore.get("session_token")?.value;
 
   const { lat, long } = await request.json();
-  console.log(lat, long);
 
   try {
     const { payload } = await jwtVerify(

@@ -10,8 +10,6 @@ export function formatHora(fechaISO) {
 }
 
 export default function Registro({ empleado }) {
-  console.log(empleado);
-
   return (
     <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
       <div className="flex flex-row gap-2 justify-between my-2">

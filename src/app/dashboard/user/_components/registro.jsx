@@ -1,8 +1,6 @@
 import { formatHora } from "../../admin/_components/registro";
 
 export default function Registro({ registro, intervalo }) {
-  console.log(registro);
-
   if (!registro) {
     return (
       <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
