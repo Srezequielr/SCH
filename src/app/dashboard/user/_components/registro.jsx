@@ -22,18 +22,41 @@ export default function Registro({ registro, intervalo }) {
         </p>
       </div>
       <hr />
-      {intervalo.map((intervalo, index) => {
-        return (
-          <div key={index} className="flex justify-center items-center my-2">
-            <span className="font-bold">
-              {formatHora(intervalo.hora_entrada)} -{" "}
-              {intervalo.hora_salida
-                ? formatHora(intervalo.hora_salida)
-                : "Trabajando..."}
-            </span>
-          </div>
-        );
-      })}
+
+      <div className="flex justify-center rounded-lg border-brown-detail my-2">
+        <table className="table-auto border-2 border-brown-detail">
+          <thead className="bg-brown-detail">
+            <tr>
+              <th scope="col" className="px-4 py-2">
+                Hora de entrada
+              </th>
+              <th scope="col" className="px-4 py-2">
+                Hora de salida
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {intervalo.map((intervalo, index, array) => {
+              const isLast = index === array.length - 1;
+              return (
+                <tr
+                  key={index}
+                  className={!isLast ? "border-b-2 border-brown-detail" : ""}
+                >
+                  <td className="text-center px-4 py-3 bg-background">
+                    {formatHora(intervalo.hora_entrada)}
+                  </td>
+                  <td className="text-center px-4 py-3 bg-background">
+                    {intervalo.hora_salida
+                      ? formatHora(intervalo.hora_salida)
+                      : "Trabajando..."}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <h2 className="font-body text-2xl my-2 text-center">Reporte del dia</h2>
       <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
         {registro.informe
