@@ -9,6 +9,19 @@ export function formatHora(fechaISO) {
   });
 }
 
+function formatHorasTrabajo(horasDecimales) {
+  if (horasDecimales === null || horasDecimales === undefined) {
+    return "--:--";
+  }
+
+  const horas = Math.floor(horasDecimales);
+  const minutos = Math.round((horasDecimales - horas) * 60);
+
+  return `${horas.toString().padStart(2, "0")}:${minutos
+    .toString()
+    .padStart(2, "0")}`;
+}
+
 export default function Registro({ empleado }) {
   return (
     <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
@@ -24,7 +37,9 @@ export default function Registro({ empleado }) {
       <div className="flex flex-row gap-2 justify-between my-2">
         <p className="font-body text-lg text-right">
           Horas trabajadas:{" "}
-          <span className="font-bold">{empleado.registros[0].horas}</span>
+          <span className="font-bold">
+            {formatHorasTrabajo(empleado.registros[0].horas)}
+          </span>
         </p>
         <p className="font-body text-lg text-right">
           <span className="font-bold">{empleado.registros[0].fecha}</span>
