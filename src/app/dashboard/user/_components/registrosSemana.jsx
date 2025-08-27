@@ -47,20 +47,21 @@ export default function RegistrosSemana() {
     );
   }
 
+  if (registrosSemana.length == 0) {
+    return (
+      <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
+        <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+          No hay registros cargados esta semana.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="text-center rounded-2xl w-full">
-      {" "}
-      {registrosSemana.length === 0 ? (
-        <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
-          <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
-            No hay registros cargados esta semana.
-          </p>
-        </div>
-      ) : (
-        registrosSemana.map((registro) => (
-          <Registro key={registro.id} registro={registro} />
-        ))
-      )}
+      {registrosSemana.map((registro) => (
+        <Registro key={registro.id} registro={registro} />
+      ))}
     </div>
   );
 }
