@@ -56,7 +56,7 @@ export default function user() {
     );
   } else
     return (
-      <section className="flex flex-col items-center min-h-screen gap-5 px-10 py-5">
+      <section className="flex flex-col items-center min-h-screen gap-5 px-5 py-10">
         <div className="w-full">
           <div className="flex items-center justify-between bg-brown-main p-2 text-center rounded-2xl mb-2 w-full">
             <p className="font-body font-bold">{`${dia}/${mes}/${año}`}</p>
