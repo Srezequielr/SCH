@@ -1,0 +1,66 @@
+"use client";
+import { useEffect, useState } from "react";
+import Registro from "./registro";
+import { Icon } from "@iconify/react";
+
+export default function RegistrosSemana() {
+  const [registrosSemana, setRegistrosSemana] = useState(null);
+  const [weekInfo, setWeekInfo] = useState(null);
+
+  const fetchData = async () => {
+    const res = await fetch("/api/user/getRegistrosSemana", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ semana: weekInfo }),
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      alert(error.error);
+      return;
+    }
+    const data = await res.json();
+
+    setRegistrosSemana(data.registro);
+  };
+
+  useEffect(() => {
+    const getISOWeekNumber = (date) => {
+      const d = new Date(date);
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+      const yearStart = new Date(d.getFullYear(), 0, 1);
+      const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+      return week;
+    };
+
+    setWeekInfo(getISOWeekNumber(new Date()));
+    fetchData();
+  }, [weekInfo]);
+
+  if (!registrosSemana) {
+    return (
+      <div className="flex items-center justify-center">
+        <Icon icon="mdi:loading" className="animate-spin text-7xl" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="text-center rounded-2xl w-full">
+      {" "}
+      {registrosSemana.length === 0 ? (
+        <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
+          <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+            No hay registros cargados esta semana.
+          </p>
+        </div>
+      ) : (
+        registrosSemana.map((registro) => (
+          <Registro key={registro.id} registro={registro} />
+        ))
+      )}
+    </div>
+  );
+}

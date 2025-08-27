@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import PanelTrabajo from "./_components/panelTrabajo";
 import Registro from "./_components/registro";
+import RegistrosSemana from "./_components/registrosSemana";
 
 export default function user() {
   const [userData, setUserData] = useState(null);
@@ -70,12 +71,15 @@ export default function user() {
           regData={registroData}
           onUpdate={fetchData}
         />
+        <h2 className="font-title text-3xl">Registro del dia.</h2>
         <Registro
           registro={registroData.registro}
           intervalo={intervalo.intervalos}
         />
+        <h2 className="font-title text-3xl">Registros de la semana.</h2>
+        <RegistrosSemana />
+        <h2 className="font-title text-3xl">Mis datos.</h2>
         <div className="bg-brown-main p-5 text-center rounded-2xl w-full">
-          <h1 className="font-body text-3xl">Mis datos</h1>
           <div className="flex flex-row gap-2 mt-2 justify-between">
             <div className="align-left">
               <p className="font-body text-lg text-left">
