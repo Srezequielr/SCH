@@ -5,15 +5,23 @@ import { Icon } from "@iconify/react";
 
 export default function RegistrosSemana() {
   const [registrosSemana, setRegistrosSemana] = useState(null);
-  const [weekInfo, setWeekInfo] = useState(null);
 
-  const fetchData = async () => {
+  const getISOWeekNumber = (date) => {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+    const yearStart = new Date(d.getFullYear(), 0, 1);
+    const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+    return week;
+  };
+
+  const fetchData = async (week) => {
     const res = await fetch("/api/user/getRegistrosSemana", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ semana: weekInfo }),
+      body: JSON.stringify({ semana: week }),
     });
     if (!res.ok) {
       const error = await res.json();
@@ -22,22 +30,15 @@ export default function RegistrosSemana() {
     }
     const data = await res.json();
 
+    console.log(data);
+
     setRegistrosSemana(data.registro);
   };
 
   useEffect(() => {
-    const getISOWeekNumber = (date) => {
-      const d = new Date(date);
-      d.setHours(0, 0, 0, 0);
-      d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-      const yearStart = new Date(d.getFullYear(), 0, 1);
-      const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-      return week;
-    };
-
-    setWeekInfo(getISOWeekNumber(new Date()));
-    fetchData();
-  }, [weekInfo]);
+    const week = getISOWeekNumber(new Date());
+    fetchData(week);
+  }, []);
 
   if (!registrosSemana) {
     return (
@@ -46,6 +47,8 @@ export default function RegistrosSemana() {
       </div>
     );
   }
+
+  console.log(registrosSemana);
 
   if (registrosSemana.length == 0) {
     return (
