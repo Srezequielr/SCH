@@ -67,7 +67,7 @@ export default function admin() {
     );
   } else
     return (
-      <section className="flex flex-col items-center min-h-screen gap-5 p-10">
+      <section className="flex flex-col items-center min-h-screen gap-5 py-10 px-5">
         <div>
           <div className="flex items-center justify-between bg-brown-main p-2 text-center rounded-2xl mb-2">
             <p className="font-body font-bold">{`${dia}/${mes}/${año}`}</p>

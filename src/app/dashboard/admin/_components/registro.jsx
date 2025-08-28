@@ -87,7 +87,7 @@ export default function Registro({ empleado }) {
           : "Aun no hay un informe cargado."}
       </p>
       <h2 className="font-body text-2xl my-2 text-center">
-        Ubicacion donde empezo al jornada
+        Ubicacion donde empezo la jornada
       </h2>
       <div className="flex justify-center">
         <p className="bg-brown-detail py-2 px-4 rounded-2xl">
