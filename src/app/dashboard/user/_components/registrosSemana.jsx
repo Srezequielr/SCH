@@ -30,8 +30,6 @@ export default function RegistrosSemana() {
     }
     const data = await res.json();
 
-    console.log(data);
-
     setRegistrosSemana(data.registro);
   };
 
@@ -47,8 +45,6 @@ export default function RegistrosSemana() {
       </div>
     );
   }
-
-  console.log(registrosSemana);
 
   if (registrosSemana.length == 0) {
     return (
