@@ -18,10 +18,10 @@ export async function GET() {
       new TextEncoder().encode(process.env.TOKEN)
     );
 
-    const { dni } = payload; // ← el dni que guardaste al loguear
+    const { id_empleado } = payload; // ← el dni que guardaste al loguear
 
-    let { data, error } = await supabase.rpc("login", {
-      dni_emp: dni,
+    let { data, error } = await supabase.rpc("obt_empleado_por_id", {
+      id_emp: id_empleado,
     });
 
     if (error) {

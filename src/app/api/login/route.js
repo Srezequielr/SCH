@@ -27,8 +27,8 @@ export async function POST(request) {
 
   const token = jwt.sign(
     {
+      id_empleado: data.id_empleado,
       dni: data.dni,
-      nombre: data.nombre,
     },
     process.env.TOKEN,
     { expiresIn: "1d" }
