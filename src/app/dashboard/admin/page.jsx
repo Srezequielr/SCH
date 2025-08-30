@@ -73,7 +73,7 @@ export default function admin() {
             <p className="font-body font-bold">{`${dia}/${mes}/${año}`}</p>
             <p className="font-body">Dashboard</p>
           </div>
-          <h1 className="font-title text-4xl">
+          <h1 className="font-title text-4xl text-center">
             Bienvenido {userData.usuario.nombre}!
           </h1>
         </div>
