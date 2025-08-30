@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Empleados({ empleados }) {
   const empleadosActivos = empleados.filter((emp) => emp.estado == "Activo");
   const empleadosInactivos = empleados.filter(
@@ -11,22 +13,32 @@ export default function Empleados({ empleados }) {
       <h2 className="font-body text-2xl my-2">Empleados activos</h2>
       {empleadosActivos.map((empleado, index) => {
         return (
-          <div key={index} className="p-2 bg-background my-2 rounded-2xl">
-            <p className="font-body font-bold">
-              {empleado.apellido} {empleado.nombre}
-            </p>
-          </div>
+          <Link
+            href={`/dashboard/admin/empleado/${empleado.id_empleado}`}
+            key={index}
+          >
+            <div key={index} className="p-2 bg-background my-2 rounded-2xl">
+              <p className="font-body font-bold">
+                {empleado.apellido} {empleado.nombre}
+              </p>
+            </div>
+          </Link>
         );
       })}
 
       <h2 className="font-body text-2xl my-2">Empleados inactivos</h2>
       {empleadosInactivos.map((empleado, index) => {
         return (
-          <div key={index} className="p-2 bg-background my-2 rounded-2xl">
-            <p className="font-body font-bold">
-              {empleado.apellido} {empleado.nombre}
-            </p>
-          </div>
+          <Link
+            href={`/dashboard/admin/empleado/${empleado.id_empleado}`}
+            key={index}
+          >
+            <div key={index} className="p-2 bg-background my-2 rounded-2xl">
+              <p className="font-body font-bold">
+                {empleado.apellido} {empleado.nombre}
+              </p>
+            </div>
+          </Link>
         );
       })}
     </div>
