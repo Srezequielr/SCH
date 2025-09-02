@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import PanelTrabajo from "./_components/panelTrabajo";
 import Registro from "./_components/registro";
 import RegistrosSemana from "./_components/registrosSemana";
+import RegistrosMes from "./_components/registrosMes";
 
 export default function user() {
   const [userData, setUserData] = useState(null);
@@ -78,6 +79,8 @@ export default function user() {
         />
         <h2 className="font-title text-3xl">Registros de la semana.</h2>
         <RegistrosSemana />
+        <h2 className="font-title text-3xl">Registros del mes.</h2>
+        <RegistrosMes />
         <h2 className="font-title text-3xl">Mis datos.</h2>
         <div className="bg-brown-main p-5 text-center rounded-2xl w-full">
           <div className="flex flex-row gap-2 mt-2 justify-between">
