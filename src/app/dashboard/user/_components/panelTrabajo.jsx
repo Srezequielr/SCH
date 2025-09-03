@@ -247,7 +247,9 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
       <div>
         <h2 className="font-body text-2xl">Reporte de dia</h2>
         {disabledReporte ? (
-          <p className="font-body">{mensajeReporte}</p>
+          <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+            {mensajeReporte}
+          </p>
         ) : (
           <form onSubmit={handleReporteSubmit}>
             <textarea
