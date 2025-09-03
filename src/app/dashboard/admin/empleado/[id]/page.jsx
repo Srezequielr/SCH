@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import RegistrosSemana from "../../_components/registrosSemana";
+import RegistrosMes from "../../_components/registrosMes";
 import Swal from "sweetalert2";
 
 export default function Empleado() {
@@ -152,6 +153,8 @@ export default function Empleado() {
           <Icon icon="mdi:loading" className="animate-spin text-7xl m-auto" />
         </div>
       )}
+      <h2 className="font-title text-3xl">Registros del mes.</h2>
+      <RegistrosMes dni={userData?.dni} />
     </section>
   );
 }
