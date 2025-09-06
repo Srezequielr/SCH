@@ -6,6 +6,7 @@ import PanelTrabajo from "./_components/panelTrabajo";
 import Registro from "./_components/registro";
 import RegistrosSemana from "./_components/registrosSemana";
 import RegistrosMes from "./_components/registrosMes";
+import BalanceSemana from "./_components/balance";
 
 export default function user() {
   const [userData, setUserData] = useState(null);
@@ -77,6 +78,8 @@ export default function user() {
           registro={registroData.registro}
           intervalo={intervalo.intervalos}
         />
+        <h2 className="font-title text-3xl">Balance de la semana.</h2>
+        <BalanceSemana />
         <h2 className="font-title text-3xl">Registros de la semana.</h2>
         <RegistrosSemana />
         <h2 className="font-title text-3xl">Registros del mes.</h2>
