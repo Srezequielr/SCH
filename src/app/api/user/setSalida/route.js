@@ -10,8 +10,15 @@ const supabase = createClient(
 
 export async function GET(request) {
   const cookieStore = await cookies();
+  const token = cookieStore.get("session_token")?.value;
 
   try {
+    const { payload } = await jwtVerify(
+      token,
+      new TextEncoder().encode(process.env.TOKEN)
+    );
+
+    const { id_empleado } = payload;
     const intervalo_id = cookieStore.get("intervalo_id")?.value;
 
     let { data, error } = await supabase.rpc("marcar_salida", {
@@ -45,6 +52,20 @@ export async function GET(request) {
       return NextResponse.json(
         {
           error: "Error desconocido al actualizar horas: " + error.message,
+        },
+        { status: 500 }
+      );
+    }
+
+    let { chequera, errorChequera } = await supabase.rpc("upsert_chequera", {
+      p_horas_nuevas: data[0].horas_trabajadas.toFixed(2),
+      p_id_empleado: id_empleado,
+    });
+
+    if (errorChequera) {
+      return NextResponse.json(
+        {
+          error: "Error desconocido al actualizar chequera: " + error.message,
         },
         { status: 500 }
       );
