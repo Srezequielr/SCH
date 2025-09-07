@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import RegistrosSemana from "../../_components/registrosSemana";
 import RegistrosMes from "../../_components/registrosMes";
 import Swal from "sweetalert2";
+import Balance from "../../_components/balance";
 
 export default function Empleado() {
   const mainColor = "#A47864";
@@ -78,7 +79,7 @@ export default function Empleado() {
 
   useEffect(() => {
     fetchData(id);
-  }, []);
+  }, []);  
 
   return (
     <section className="flex flex-col items-center min-h-screen gap-5 py-10 px-5">
@@ -145,6 +146,8 @@ export default function Empleado() {
           <Icon icon="mdi:loading" className="animate-spin text-7xl m-auto" />
         )}
       </div>
+      <h3 className="font-body text-3xl">Balance de la semana</h3>
+      <Balance userData = {userData}/>
       <h3 className="font-body text-3xl">Registros de la semana</h3>
       {userData ? (
         <RegistrosSemana dni_empleado={userData?.dni} />
