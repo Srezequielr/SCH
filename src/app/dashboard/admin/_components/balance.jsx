@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
+import Swal from "sweetalert2";
 
 export default function Balance({ userData }) {
+  const mainColor = "#A47864";
   const [balance, setBalance] = useState(null);
   const [busttonDisabled, setButtonDisabled] = useState(false);
-  const [sueldoInputDisabled, setSueldoInputDisabled] = useState(true);
-  const [loadingSueldo, setLoadingSueldo] = useState(false);
+  const [pagoInputDisabled, setPagoInputDisabled] = useState(true);
+  const [loadingPago, setLoadingPago] = useState(false);
 
   const fetchBalance = async () => {
     const res = await fetch("/api/admin/getBalanceSemana", {
@@ -25,9 +27,47 @@ export default function Balance({ userData }) {
     setBalance(balanceData);
   };
 
+  const setPago = async (event) => {
+    event.preventDefault();
+    setLoadingPago(true);
+    const pago = event.target.pago.value;
+    setPagoInputDisabled(true);
+
+    const res = await fetch("/api/admin/setPago", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id_empleado: userData.id_empleado,
+        pago: pago,
+        num_sem: balance.balance.num_semana,
+      }),
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      Swal.fire({
+        icon: "error",
+        title: "No se pudo acreditar el pago.",
+        text: error.error,
+        background: mainColor,
+        color: "#000000",
+      });
+      setLoadingPago(false);
+      setButtonDisabled(false);
+      return;
+    }
+    Swal.fire({
+      icon: "success",
+      title: "Sueldo actualizado correctamente!",
+      background: mainColor,
+      color: "#000000",
+    });
+    setLoadingPago(false);
+    setButtonDisabled(false);
+    fetchBalance();
+  };
   const setInputSueldo = () => {
     setButtonDisabled(true);
-    setSueldoInputDisabled(false);
+    setPagoInputDisabled(false);
   };
 
   useEffect(() => {
@@ -39,7 +79,7 @@ export default function Balance({ userData }) {
   if (!balance) {
     return (
       <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
-        <div className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center">
+        <div className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center flex justify-center">
           <Icon icon="mdi:loading" className="animate-spin text-7xl" />
         </div>
       </div>
@@ -51,8 +91,8 @@ export default function Balance({ userData }) {
           <>
             <div className="font-body grid grid-cols-3 justify-around bg-background p-2 w-full my-2 rounded-2xl text-center">
               <h2 className="text-lg">Horas trabajadas</h2>
-              <h2 className="text-lg">Saldo acumulado</h2>
-              <h2 className="text-lg">Pagos realizados</h2>
+              <h2 className="text-lg">Saldo a pagar</h2>
+              <h2 className="text-lg">Saldo pagado</h2>
 
               <p className="font-body text-3xl">
                 {balance.balance.horas_totales}
@@ -70,15 +110,15 @@ export default function Balance({ userData }) {
                 disabled={busttonDisabled}
                 className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
               >
-                {loadingSueldo ? "Registrando pago..." : "Registrar pago"}
+                {loadingPago ? "Registrando pago..." : "Registrar pago"}
               </button>
-              {!sueldoInputDisabled ? (
-                <form action="">
+              {!pagoInputDisabled ? (
+                <form action="" onSubmit={setPago}>
                   <div className="flex flex-row gap-1.5">
                     <input
                       type="number"
-                      placeholder="Sueldo"
-                      name="sueldo"
+                      placeholder="Pago"
+                      name="pago"
                       required
                       className="text-center bg-background rounded-2xl w-full focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
                     />
