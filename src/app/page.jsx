@@ -46,7 +46,7 @@ export default function Home() {
         src="/aguilanaIsoNegro.png"
       />
       <h1 className="font-title text-4xl text-center">
-        Sistema de Control de Horarios
+        Sistema de Control Horario
       </h1>
       <div className="font-body text-center text-lg  bg-brown-main w-5/6 p-5 rounded-2xl">
         <form onSubmit={handleSubmit}>
