@@ -40,7 +40,7 @@ export default function RegistrosDia({ empleados, registros, intervalos }) {
     intervalos.intervalos
   );
 
-  if (!empleados.lenght) {
+  if (!empleados.length) {
     return (
       <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
         <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
