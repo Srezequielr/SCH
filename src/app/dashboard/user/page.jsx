@@ -7,15 +7,12 @@ import Registro from "./_components/registro";
 import RegistrosSemana from "./_components/registrosSemana";
 import RegistrosMes from "./_components/registrosMes";
 import BalanceSemana from "./_components/balance";
+import getFechaActual from "@/utils/getFechaActual";
 
 export default function user() {
   const [userData, setUserData] = useState(null);
   const [registroData, setRegistroData] = useState(null);
   const [intervalo, setIntervalo] = useState(null);
-  const fechaActual = new Date();
-  const año = fechaActual.getFullYear();
-  const mes = fechaActual.getMonth() + 1;
-  const dia = fechaActual.getDate();
 
   const fetchData = async () => {
     const res = await fetch("/api/getUser");
@@ -61,7 +58,7 @@ export default function user() {
       <section className="flex flex-col items-center min-h-screen gap-5 px-5 py-10">
         <div className="w-full">
           <div className="flex items-center justify-between bg-brown-main p-2 text-center rounded-2xl mb-2 w-full">
-            <p className="font-body font-bold">{`${dia}/${mes}/${año}`}</p>
+            <p className="font-body font-bold">{getFechaActual()}</p>
             <p className="font-body">Dashboard</p>
           </div>
           <h1 className="font-title text-4xl text-center">

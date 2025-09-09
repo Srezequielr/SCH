@@ -1,26 +1,6 @@
 import Link from "next/link";
-
-export function formatHora(fechaISO) {
-  const fecha = new Date(fechaISO);
-  return fecha.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-}
-
-function formatHorasTrabajo(horasDecimales) {
-  if (horasDecimales === null || horasDecimales === undefined) {
-    return "--:--";
-  }
-
-  const horas = Math.floor(horasDecimales);
-  const minutos = Math.round((horasDecimales - horas) * 60);
-
-  return `${horas.toString().padStart(2, "0")}:${minutos
-    .toString()
-    .padStart(2, "0")}`;
-}
+import formatHorasTrabajo from "@/utils/formatHsTrabajo";
+import formatHora from "@/utils/formatHorario";
 
 export default function Registro({ empleado }) {
   return (

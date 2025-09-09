@@ -3,16 +3,13 @@ import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import Empleados from "./_components/empleados";
 import RegistrosDia from "./_components/registrosDia";
+import getFechaActual from "@/utils/getFechaActual";
 
 export default function admin() {
   const [userData, setUserData] = useState(null);
   const [empleados, setEmpleados] = useState(null);
   const [registros, setRegistros] = useState(null);
   const [intervalos, setIntervalos] = useState(null);
-  const fechaActual = new Date();
-  const año = fechaActual.getFullYear();
-  const mes = fechaActual.getMonth() + 1;
-  const dia = fechaActual.getDate();
 
   const fetchData = async () => {
     const resUser = await fetch("/api/getUser");
@@ -70,7 +67,7 @@ export default function admin() {
       <section className="flex flex-col items-center min-h-screen gap-5 py-10 px-5">
         <div>
           <div className="flex items-center justify-between bg-brown-main p-2 text-center rounded-2xl mb-2">
-            <p className="font-body font-bold">{`${dia}/${mes}/${año}`}</p>
+            <p className="font-body font-bold">{getFechaActual()}</p>
             <p className="font-body">Dashboard</p>
           </div>
           <h1 className="font-title text-4xl text-center">

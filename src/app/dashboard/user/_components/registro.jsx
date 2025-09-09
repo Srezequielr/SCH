@@ -1,17 +1,5 @@
-import { formatHora } from "../../admin/_components/registro";
-
-function formatHorasTrabajo(horasDecimales) {
-  if (horasDecimales === null || horasDecimales === undefined) {
-    return "--:--";
-  }
-
-  const horas = Math.floor(horasDecimales);
-  const minutos = Math.round((horasDecimales - horas) * 60);
-
-  return `${horas.toString().padStart(2, "0")}:${minutos
-    .toString()
-    .padStart(2, "0")}`;
-}
+import formatHora from "@/utils/formatHorario";
+import formatHorasTrabajo from "@/utils/formatHsTrabajo";
 
 export default function Registro({ registro, intervalo }) {
   if (!registro) {

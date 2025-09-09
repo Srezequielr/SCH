@@ -2,18 +2,10 @@
 import { useEffect, useState } from "react";
 import Registro from "./registro";
 import { Icon } from "@iconify/react";
+import getNumSemana from "@/utils/getNumSem";
 
 export default function RegistrosSemana() {
   const [registrosSemana, setRegistrosSemana] = useState(null);
-
-  const getISOWeekNumber = (date) => {
-    const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-    const yearStart = new Date(d.getFullYear(), 0, 1);
-    const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-    return week;
-  };
 
   const fetchData = async (week) => {
     const res = await fetch("/api/user/getRegistrosSemana", {
@@ -34,7 +26,7 @@ export default function RegistrosSemana() {
   };
 
   useEffect(() => {
-    const week = getISOWeekNumber(new Date());
+    const week = getNumSemana(new Date());
     fetchData(week);
   }, []);
 
