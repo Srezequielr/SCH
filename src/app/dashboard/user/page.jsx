@@ -8,6 +8,7 @@ import RegistrosSemana from "./_components/registrosSemana";
 import RegistrosMes from "./_components/registrosMes";
 import BalanceSemana from "./_components/balance";
 import getFechaActual from "@/utils/getFechaActual";
+import BalancesMes from "./_components/balancesMes";
 
 export default function user() {
   const [userData, setUserData] = useState(null);
@@ -77,6 +78,8 @@ export default function user() {
         />
         <h2 className="font-title text-3xl">Balance de la semana.</h2>
         <BalanceSemana />
+        <h2 className="font-title text-3xl">Balances del mes</h2>
+        <BalancesMes />
         <h2 className="font-title text-3xl">Registros de la semana.</h2>
         <RegistrosSemana />
         <h2 className="font-title text-3xl">Registros del mes.</h2>

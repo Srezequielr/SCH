@@ -23,7 +23,7 @@ export default function BalanceSemana() {
   if (!balance) {
     return (
       <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
-        <div className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center">
+        <div className="font-body bg-background p-2 w-full my-2 rounded-2xl flex justify-center">
           <Icon icon="mdi:loading" className="animate-spin text-7xl" />
         </div>
       </div>
