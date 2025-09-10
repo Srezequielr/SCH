@@ -87,10 +87,10 @@ export default function Balance({ userData }) {
     );
   } else {
     return (
-      <div className="bg-brown-main p-5 w-full rounded-2xl">
+      <div className={`${balance.balance.saldo_total == balance.balance.pagos_realizados? "border-green-400": "border-red-400"} border-4 bg-brown-main p-5 w-full rounded-2xl`}>
         {balance.balance.id_empleado ? (
           <>
-            <div className="font-body grid grid-cols-3 justify-around items-center bg-background p-2 w-full my-2 rounded-2xl text-center">
+            <div className="font-body grid grid-cols-3 justify-around items-center bg-background p-2 w-full mb-2 rounded-2xl text-center">
               <h2 className="text-lg">Horas trabajadas</h2>
               <h2 className="text-lg">Saldo a pagar</h2>
               <h2 className="text-lg">Saldo pagado</h2>

@@ -83,7 +83,7 @@ export default function user() {
         <RegistrosMes />
         <h2 className="font-title text-3xl">Mis datos.</h2>
         <div className="bg-brown-main p-5 text-center rounded-2xl w-full">
-          <div className="flex flex-row gap-2 mt-2 justify-between">
+          <div className="flex flex-row gap-2 justify-between">
             <div className="align-left">
               <p className="font-body text-lg text-left">
                 Nombre:{" "}

@@ -14,7 +14,7 @@ export default function Registro({ registro, intervalo }) {
 
   return (
     <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
-      <div className="flex flex-row gap-2 justify-between my-2">
+      <div className="flex flex-row gap-2 justify-between mb-2">
         <p className="font-body text-lg text-right">
           Horas trabajadas:{" "}
           <span className="font-bold">
@@ -63,7 +63,7 @@ export default function Registro({ registro, intervalo }) {
         </div>
       )}
       <h2 className="font-body text-2xl my-2 text-center">Reporte del dia</h2>
-      <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+      <p className="font-body bg-background p-2 w-full mt-2 rounded-2xl text-center whitespace-pre-line">
         {registro.informe
           ? registro.informe
           : "No se ha cargado ningun reporte."}

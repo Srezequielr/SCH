@@ -33,21 +33,21 @@ export default function RegistrosMes({ dni }) {
             placeholder="Mes"
             name="mes"
             required
-            className="bg-background p-2 rounded-l-2xl w-full my-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail text-center"
+            className="bg-background p-2 rounded-l-2xl w-full mb-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail text-center"
           />
           <input
             type="text"
             placeholder="Año"
             name="año"
             required
-            className="bg-background p-2 rounded-r-2xl w-full my-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail text-center"
+            className="bg-background p-2 rounded-r-2xl w-full mb-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail text-center"
           />
         </div>
         <button className="bg-brown-detail text-white font-bold w-full py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail">
           {loading ? "Buscando..." : "Buscar"}
         </button>
       </form>
-      <div className="bg-background flex flex-col gap-2 p-2 w-full my-2 rounded-2xl">
+      <div className="bg-background flex flex-col gap-2 p-2 w-full mt-2 rounded-2xl">
         {registrosData && registrosData.length > 0 ? (
           registrosData.map((registro, index) => {
             return (
