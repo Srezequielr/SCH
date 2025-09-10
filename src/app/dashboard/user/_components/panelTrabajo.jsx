@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import formatHorasTrabajo from "@/utils/formatHsTrabajo";
 
 function obtenerGeolocalizacion() {
   return new Promise((resolve, reject) => {
@@ -173,7 +174,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
     Swal.fire({
       icon: "success",
       title: "Salida marcada correctamente!",
-      text: "horas trabajadas: " + horasTotales,
+      text: "horas trabajadas: " + formatHorasTrabajo(horasTotales),
       background: mainColor,
       color: "#000000",
     });

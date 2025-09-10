@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
+import formatHorasTrabajo from "@/utils/formatHsTrabajo";
 
 export default function BalanceSemana() {
   const [balance, setBalance] = useState(null);
@@ -36,7 +37,7 @@ export default function BalanceSemana() {
               <h2 className="text-lg">Horas trabajadas</h2>
               <h2 className="text-lg">Saldo acumulado</h2>
               <p className="font-body text-3xl">
-                {balance.balance.horas_totales}
+                {formatHorasTrabajo(balance.balance.horas_totales)}
               </p>
               <p className="font-body text-3xl">
                 {balance.balance.saldo_total}
