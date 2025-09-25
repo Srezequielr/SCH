@@ -257,6 +257,7 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
               disabled={disabledReporte}
               name="reporte"
               type="text"
+              required
               placeholder="Tareas realizadas en el dia, debe tener el registro de entrada y salida para habilitar este campo."
               className="bg-background p-2 rounded-2xl w-full my-2 h-32 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
             />
