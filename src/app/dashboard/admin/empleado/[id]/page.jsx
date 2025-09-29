@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import RegistrosSemana from "../../_components/registrosSemana";
 import RegistrosMes from "../../_components/registrosMes";
 import Swal from "sweetalert2";
-import Balance from "../../_components/balance";
+import BalanceSemana from "../../_components/balanceSemama";
 import getFechaActual from "@/utils/getFechaActual";
 import BalancesMes from "../../_components/balancesMes";
 
@@ -145,7 +145,7 @@ export default function Empleado() {
         )}
       </div>
       <h2 className="font-body text-3xl">Balance de la semana.</h2>
-      <Balance userData={userData} />
+      <BalanceSemana userData={userData} />
       <h2 className="font-body text-3xl">Balances del mes.</h2>
       <BalancesMes userData={userData}/>
       <h2 className="font-body text-3xl">Registros de la semana.</h2>

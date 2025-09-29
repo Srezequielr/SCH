@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import Swal from "sweetalert2";
 import formatHorasTrabajo from "@/utils/formatHsTrabajo";
 
-export default function Balance({ userData }) {
+export default function BalanceSemana({ userData }) {
   const mainColor = "#A47864";
   const [balance, setBalance] = useState(null);
   const [busttonDisabled, setButtonDisabled] = useState(false);
