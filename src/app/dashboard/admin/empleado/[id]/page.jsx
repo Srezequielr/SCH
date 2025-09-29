@@ -115,7 +115,7 @@ export default function Empleado() {
               <button
                 onClick={setInputSueldo}
                 disabled={busttonDisabled}
-                className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
+                className="button_2"
               >
                 {loadingSueldo ? "Modificando sueldo..." : "Modificar sueldo"}
               </button>
@@ -131,7 +131,7 @@ export default function Empleado() {
                     />
                     <button
                       type="submit"
-                      className="bg-brown-detail w-full text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
+                      className="button_2"
                     >
                       Actualizar sueldo
                     </button>

@@ -1,12 +1,12 @@
 @import "tailwindcss";
+@tailwind utilities;
 
 :root {
-  --background: #F2F1E7;
-  --main-color: #A47864;
-  --detail-color: #915B4A;
+  --background: #f2f1e7;
+  --main-color: #a47864;
+  --detail-color: #915b4a;
   --font-title: "Alegreya", serif;
   --font-body: "Alegreya Sans", sans-serif;
-
 }
 
 @theme {
@@ -19,6 +19,23 @@
   --font-body: var(--font-body);
 }
 
+@layer components {
+  .button_1 {
+    @apply bg-brown-detail focus:outline-brown-detail rounded-lg px-6 py-2 font-bold text-white transition;
+  }
+  .button_1:focus {
+    @apply outline-4 outline-offset-2 outline-solid;
+  }
+  .button_2 {
+    @apply bg-brown-detail focus:outline-brown-detail w-full rounded-lg px-4 py-2 font-bold text-white;
+  }
+  .button_2:disabled {
+    @apply text-gray-400;
+  }
+  .button_2:focus {
+    @apply outline-4 outline-offset-2 outline-solid;
+  }
+}
 
 body {
   background: var(--background);

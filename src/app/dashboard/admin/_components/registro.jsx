@@ -70,7 +70,7 @@ export default function Registro({ empleado }) {
         Ubicacion donde empezo la jornada
       </h2>
       <div className="flex justify-center">
-        <p className="bg-brown-detail py-2 px-4 rounded-2xl">
+        <p className="button_1">
           {empleado.registros[0].latitud ? (
             <Link
               href={`https://www.google.com/maps/search/?api=1&query=${empleado.registros[0].latitud},${empleado.registros[0].longitud}`}

@@ -51,7 +51,7 @@ function obtenerGeolocalizacion() {
           message,
           originalError: error,
         });
-      }
+      },
     );
   });
 }
@@ -214,41 +214,37 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
   };
 
   return (
-    <div className="bg-brown-main p-5 text-center rounded-2xl w-full">
+    <div className="bg-brown-main w-full rounded-2xl p-5 text-center">
       <h2 className="font-body text-3xl">Panel de trabajo</h2>
       {userData.usuario.estado === "Activo" ? (
-        <p className="bg-brown-detail text-green-400 text-center font-bold text-4xl p-3 rounded-2xl my-2">
+        <p className="bg-brown-detail my-2 rounded-2xl p-3 text-center text-4xl font-bold text-green-400">
           {userData.usuario.estado}
         </p>
       ) : (
-        <p className="bg-brown-detail text-red-400 text-center font-bold text-4xl p-3 rounded-2xl my-2">
+        <p className="bg-brown-detail my-2 rounded-2xl p-3 text-center text-4xl font-bold text-red-400">
           {userData.usuario.estado}
         </p>
       )}
-      <p className="font-body text-lg py-2">
+      <p className="font-body py-2 text-lg">
         Esta es la sección de usuario, aquí podrás ver tus horarios y realizar
         otras acciones.
       </p>
-      <div className="flex flex-col gap-2 mb-4">
+      <div className="mb-4 flex flex-col gap-2">
         <button
           onClick={entrada}
-          className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
+          className="button_2"
           disabled={disabledEntrada}
         >
           {loadingEntrada ? "Marcando entrada..." : "Marcar entrada"}
         </button>
-        <button
-          onClick={salida}
-          className="bg-brown-detail text-white font-bold py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
-          disabled={disabledSalida}
-        >
+        <button onClick={salida} className="button_2" disabled={disabledSalida}>
           {loadingSalida ? "Marcando salida..." : "Marcar salida"}
         </button>
       </div>
       <div>
         <h2 className="font-body text-2xl">Reporte de dia</h2>
         {disabledReporte ? (
-          <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+          <p className="font-body bg-background my-2 w-full rounded-2xl p-2 text-center whitespace-pre-line">
             {mensajeReporte}
           </p>
         ) : (
@@ -259,12 +255,12 @@ export default function PanelTrabajo({ userData, onUpdate, regData }) {
               type="text"
               required
               placeholder="Tareas realizadas en el dia, debe tener el registro de entrada y salida para habilitar este campo."
-              className="bg-background p-2 rounded-2xl w-full my-2 h-32 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
+              className="bg-background focus:outline-brown-detail my-2 h-32 w-full rounded-2xl p-2 focus:outline-4 focus:outline-offset-2 focus:outline-solid"
             />
             <button
               disabled={disabledReporte}
               type="submit"
-              className="bg-brown-detail font-bold py-2 px-4 rounded-2xl mt-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail"
+              className="button_1"
             >
               {loadingReporte ? "Enviendo reporte..." : "Enviar reporte"}
             </button>

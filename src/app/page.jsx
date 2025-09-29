@@ -37,38 +37,37 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-10">
-      <p className="absolute right-2 top-2">V1.10.10.4</p>
+    <div className="flex min-h-screen flex-col items-center justify-center gap-10 px-5">
+      <p className="absolute top-2 right-2">V1.10.11.4</p>
       <Image
         width={250}
         height={250}
         alt="Aguilana Icono Negro"
         src="/aguilanaIsoNegro.png"
       />
-      <h1 className="font-title text-4xl text-center">
+      <h1 className="font-title text-center text-4xl">
         Sistema de Control Horario
       </h1>
-      <div className="font-body text-center text-lg  bg-brown-main w-5/6 p-5 rounded-2xl">
+      <div className="font-body bg-brown-main rounded-2xl p-5 text-center text-lg">
         <form onSubmit={handleSubmit}>
           <label className="font-body text-2xl">Ingrese su DNI</label>
           <input
             type="number"
-            className="w-full p-2 mt-2 border border-brown-detail rounded-lg focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail bg-background transition"
+            className="border-brown-detail focus:outline-brown-detail bg-background my-2 w-full rounded-lg border p-2 transition focus:outline-4 focus:outline-offset-2 focus:outline-solid"
             placeholder="DNI"
             name="dni"
             required
           />
 
-          <button
-            type="submit"
-            className="mt-4 px-6 py-2 bg-brown-detail text-white rounded-lg focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail transition"
-          >
+          <button type="submit" className="button_1">
             {isLoading ? "Ingresando..." : "Ingresar"}
           </button>
         </form>
       </div>
       {error && (
-        <p className="text-red-500 font-bold text-center px-5 transition-all">{error}</p>
+        <p className="px-5 text-center font-bold text-red-500 transition-all">
+          {error}
+        </p>
       )}
     </div>
   );

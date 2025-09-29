@@ -43,7 +43,7 @@ export default function RegistrosMes({ dni }) {
             className="bg-background p-2 rounded-r-2xl w-full mb-2 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail text-center"
           />
         </div>
-        <button className="bg-brown-detail text-white font-bold w-full py-2 px-4 rounded-2xl disabled:text-gray-400 focus:outline-solid focus:outline-offset-2 focus:outline-4 focus:outline-brown-detail">
+        <button className="button_2">
           {loading ? "Buscando..." : "Buscar"}
         </button>
       </form>
