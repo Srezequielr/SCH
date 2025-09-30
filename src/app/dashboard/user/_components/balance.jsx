@@ -20,6 +20,9 @@ export default function BalanceSemana() {
     fetchBalance();
   }, []);
 
+  console.log(balance);
+  
+
   if (!balance) {
     return (
       <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
@@ -41,11 +44,11 @@ export default function BalanceSemana() {
             <div className="mb-2 flex flex-row justify-between gap-2">
               <p className="font-body text-lg">
                 Num. semana: {""}
-                <span className="font-bold">{balance.num_semana}</span>
+                <span className="font-bold">{balance.balance.num_semana}</span>
               </p>
               <p className="font-body text-lg">
                 Num. mes: {""}
-                <span className="font-bold">{balance.num_mes}</span>
+                <span className="font-bold">{balance.balance.num_mes}</span>
               </p>
             </div>
             <hr />
