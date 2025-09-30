@@ -1,16 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import Swal from "sweetalert2";
-import formatHorasTrabajo from "@/utils/formatHsTrabajo";
 import BalanceCard from "./balanceCard";
 
 export default function BalanceSemana({ userData }) {
-  const mainColor = "#A47864";
   const [balance, setBalance] = useState(null);
-  const [busttonDisabled, setButtonDisabled] = useState(false);
-  const [pagoInputDisabled, setPagoInputDisabled] = useState(true);
-  const [loadingPago, setLoadingPago] = useState(false);
 
   const fetchBalance = async () => {
     const res = await fetch("/api/admin/getBalanceSemana", {
@@ -27,49 +21,6 @@ export default function BalanceSemana({ userData }) {
     }
     const balanceData = await res.json();
     setBalance(balanceData);
-  };
-
-  const setPago = async (event) => {
-    event.preventDefault();
-    setLoadingPago(true);
-    const pago = event.target.pago.value;
-    setPagoInputDisabled(true);
-
-    const res = await fetch("/api/admin/setPago", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id_empleado: userData.id_empleado,
-        pago: pago,
-        num_sem: balance.balance.num_semana,
-      }),
-    });
-    if (!res.ok) {
-      const error = await res.json();
-      Swal.fire({
-        icon: "error",
-        title: "No se pudo acreditar el pago.",
-        text: error.error,
-        background: mainColor,
-        color: "#000000",
-      });
-      setLoadingPago(false);
-      setButtonDisabled(false);
-      return;
-    }
-    Swal.fire({
-      icon: "success",
-      title: "Sueldo actualizado correctamente!",
-      background: mainColor,
-      color: "#000000",
-    });
-    setLoadingPago(false);
-    setButtonDisabled(false);
-    fetchBalance();
-  };
-  const setInputSueldo = () => {
-    setButtonDisabled(true);
-    setPagoInputDisabled(false);
   };
 
   useEffect(() => {

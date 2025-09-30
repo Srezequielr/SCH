@@ -36,8 +36,6 @@ export default function BalancesMes() {
     setLoading(false);
   };
 
-  console.log(balancesData);
-
   useEffect(() => {
     handlerSearch();
   }, []);
@@ -71,11 +69,10 @@ export default function BalancesMes() {
             return (
               <div
                 key={index}
-                className={`${
-                  balance.saldo_total == balance.pagos_realizados
+                className={`${balance.saldo_total == balance.pagos_realizados
                     ? "border-green-400"
                     : "border-red-400"
-                } bg-brown-main w-full rounded-2xl border-4 p-5`}
+                  } bg-brown-main w-full rounded-2xl border-4 p-5`}
               >
                 {balance.id_empleado ? (
                   <div className="font-body bg-background grid w-full grid-cols-3 items-center justify-around rounded-2xl p-2 text-center">
