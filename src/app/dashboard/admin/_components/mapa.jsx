@@ -103,7 +103,7 @@ export default function MapaUbicacion({ lat, lng, altura = "300px", nombre }) {
       <h2 className="font-body my-2 text-center text-2xl">
         Ubicacion donde empezo la jornada
       </h2>
-      <Mapa lat={lat} lng={lng} altura={altura} nombre={nombre} />;
+      <Mapa lat={lat} lng={lng} altura={altura} nombre={nombre} />
     </div>
   );
 }
