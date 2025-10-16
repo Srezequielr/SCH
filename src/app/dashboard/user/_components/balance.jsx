@@ -20,13 +20,10 @@ export default function BalanceSemana() {
     fetchBalance();
   }, []);
 
-  console.log(balance);
-  
-
   if (!balance) {
     return (
-      <div className="bg-brown-main p-5 my-2 w-full rounded-2xl">
-        <div className="font-body bg-background p-2 w-full my-2 rounded-2xl flex justify-center">
+      <div className="bg-brown-main my-2 w-full rounded-2xl p-5">
+        <div className="font-body bg-background my-2 flex w-full justify-center rounded-2xl p-2">
           <Icon icon="mdi:loading" className="animate-spin text-7xl" />
         </div>
       </div>
@@ -34,10 +31,11 @@ export default function BalanceSemana() {
   } else {
     return (
       <div
-        className={`${balance.balance.saldo_total == balance.balance.pagos_realizados
+        className={`${
+          balance.balance.saldo_total == balance.balance.pagos_realizados
             ? "border-green-400"
             : "border-red-400"
-          } border-4 bg-brown-main p-5 w-full rounded-2xl`}
+        } bg-brown-main w-full rounded-2xl border-4 p-5`}
       >
         {balance.balance.id_empleado ? (
           <>
@@ -52,7 +50,7 @@ export default function BalanceSemana() {
               </p>
             </div>
             <hr />
-            <div className="font-body grid grid-cols-3 mt-2 justify-around items-center bg-background p-2 w-full rounded-2xl text-center">
+            <div className="font-body bg-background mt-2 grid w-full grid-cols-3 items-center justify-around rounded-2xl p-2 text-center">
               <h2 className="text-lg leading-none">Horas trabajadas</h2>
               <h2 className="text-lg leading-none">Saldo a pagar</h2>
               <h2 className="text-lg leading-none">Saldo pagado</h2>
@@ -60,7 +58,9 @@ export default function BalanceSemana() {
               <p className="font-body text-3xl">
                 {formatHorasTrabajo(balance.balance.horas_totales)}
               </p>
-              <p className="font-body text-3xl">{balance.balance.saldo_total}</p>
+              <p className="font-body text-3xl">
+                {balance.balance.saldo_total}
+              </p>
               <p className="font-body text-3xl">
                 {balance.balance.pagos_realizados}
               </p>
@@ -68,7 +68,7 @@ export default function BalanceSemana() {
           </>
         ) : (
           <div className="">
-            <p className="font-body bg-background p-2 w-full my-2 rounded-2xl text-center whitespace-pre-line">
+            <p className="font-body bg-background my-2 w-full rounded-2xl p-2 text-center whitespace-pre-line">
               Aun no hay ningun registro en la chequera
             </p>
           </div>
@@ -77,7 +77,6 @@ export default function BalanceSemana() {
     );
   }
 }
-
 
 // <div>
 //   <div
