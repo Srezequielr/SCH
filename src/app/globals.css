@@ -37,6 +37,18 @@
   }
 }
 
+/* Importar CSS de Leaflet */
+@import 'leaflet/dist/leaflet.css';
+
+/* Solucionar problema de iconos faltantes */
+.leaflet-default-icon-path {
+  background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png);
+}
+
+.leaflet-default-shadow-path {
+  background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png);
+}
+
 body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
