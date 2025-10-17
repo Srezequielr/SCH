@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-10 px-5">
-      <p className="absolute top-2 right-2">V1.11.14.5</p>
+      <p className="absolute top-2 right-2">V1.11.15.5</p>
       <Image
         width={250}
         height={250}
