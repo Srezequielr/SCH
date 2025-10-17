@@ -21,10 +21,6 @@ function obtenerGeolocalizacionPrecisa(maxIntentos = 3) {
     let mejorLectura = null;
 
     const realizarLectura = (intento = 1) => {
-      console.log(
-        `🎯 Obteniendo ubicación precisa (${intento}/${maxIntentos})...`,
-      );
-
       navigator.geolocation.getCurrentPosition(
         (posicion) => {
           const precision = posicion.coords.accuracy;
@@ -35,8 +31,6 @@ function obtenerGeolocalizacionPrecisa(maxIntentos = 3) {
             mejorPrecision = precision;
             mejorLectura = posicion;
           }
-
-          console.log(`📊 Lectura ${intento}: ${precision}m de precisión`);
 
           // Si tenemos buena precisión o es el último intento, resolver
           if (precision <= 20 || intento >= maxIntentos) {
@@ -70,8 +64,6 @@ function obtenerGeolocalizacionPrecisa(maxIntentos = 3) {
           }
         },
         (error) => {
-          console.warn(`⚠️ Intento ${intento} falló:`, error);
-
           if (intento >= maxIntentos) {
             // Si todos los intentos fallaron
             manejarErrorFinal(error, resolve);
@@ -137,16 +129,15 @@ function calcularPromedioUbicaciones(lecturas) {
 function obtenerFuentePrecision(accuracy) {
   // 🔥 VALIDAR QUE LA PRECISIÓN SEA UN NÚMERO VÁLIDO
   if (!accuracy || accuracy <= 0 || accuracy > 100000) {
-    console.warn('❌ Precisión inválida detectada:', accuracy);
-    return 'Precisión no disponible';
+    return "Precisión no disponible";
   }
-  
-  if (accuracy <= 10) return 'GPS de alta precisión (≤10m)';
-  if (accuracy <= 30) return 'GPS estándar (≤30m)';
-  if (accuracy <= 50) return 'WiFi/Celular (≤50m)';
-  if (accuracy <= 100) return 'Triangulación (≤100m)';
-  if (accuracy <= 500) return 'Baja precisión (≤500m)';
-  if (accuracy <= 1000) return 'Muy baja precisión (≤1km)';
+
+  if (accuracy <= 10) return "GPS de alta precisión (≤10m)";
+  if (accuracy <= 30) return "GPS estándar (≤30m)";
+  if (accuracy <= 50) return "WiFi/Celular (≤50m)";
+  if (accuracy <= 100) return "Triangulación (≤100m)";
+  if (accuracy <= 500) return "Baja precisión (≤500m)";
+  if (accuracy <= 1000) return "Muy baja precisión (≤1km)";
   return `Precisión limitada (${Math.round(accuracy)}m)`;
 }
 
