@@ -19,8 +19,8 @@ export async function POST(request) {
       token,
       new TextEncoder().encode(process.env.TOKEN)
     );
-    const { dni } = payload; // ← el dni que guardaste al loguear
-
+    const { dni } = payload;
+    
     let { data, error } = await supabase.rpc("marcar_entrada", {
       dni_emp: dni,
       lat,
@@ -29,7 +29,6 @@ export async function POST(request) {
 
     if (error) {
       if (error.message === "409") {
-        // Error de duplicado, ya existe un registro de entrada
         return NextResponse.json(
           {
             error: "Ya se ha registrado una entrada hoy, y no ha sido cerrada.",
@@ -44,20 +43,19 @@ export async function POST(request) {
         { status: 500 }
       );
     }
-    // Creamos la respuesta
+
     const response = NextResponse.json(
       { cookie: payload, usuario: data },
       { status: 200 }
     );
 
-    // Seteamos la cookie en la respuesta (así viaja al navegador)
     response.cookies.set({
       name: "intervalo_id",
       value: data,
       httpOnly: true,
       secure: true,
       path: "/",
-      maxAge: 10 * 60 * 60,
+      maxAge: 12 * 60 * 60,
       sameSite: "strict",
     });
 
